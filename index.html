@@ -3,57 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moveadsd</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-        }
-        .popup {
-            position: absolute;
-            width: 150px;
-            height: 100px;
-            background-color: lightblue;
-            border: 2px solid #333;
-            text-align: center;
-            line-height: 100px;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            color: black;
-            border-radius: 10px;
-            pointer-events: none;
-        }
-    </style>
+    <title>Popup Generator</title>
 </head>
 <body>
 
 <script>
-    // Function to generate random positions on the screen
+    // Function to generate a random position for the popup
     function getRandomPosition() {
-        const width = window.innerWidth - 150;
-        const height = window.innerHeight - 100;
+        const width = window.innerWidth - 200;  // Subtract width of the popup
+        const height = window.innerHeight - 200;  // Subtract height of the popup
         const randomX = Math.floor(Math.random() * width);
         const randomY = Math.floor(Math.random() * height);
         return { x: randomX, y: randomY };
     }
 
-    // Function to create a popup that moves around
+    // Function to create and move the popup
     function createPopup() {
-        const popup = document.createElement('div');
-        popup.classList.add('popup');
-        popup.textContent = 'Popup!';
-        document.body.appendChild(popup);
+        // Create a new popup window
+        const popup = window.open("", "", "width=200,height=100,resizable,scrollbars");
 
-        // Initial position
-        const { x, y } = getRandomPosition();
-        popup.style.left = `${x}px`;
-        popup.style.top = `${y}px`;
+        // Add some content to the popup window
+        popup.document.write("<h1>Popup!</h1>");
+        popup.document.close();  // Close the document to complete the load
 
-        // Move the popup every 1000 milliseconds (1 second)
+        // Function to move the popup every second
         setInterval(() => {
             const { x, y } = getRandomPosition();
-            popup.style.left = `${x}px`;
-            popup.style.top = `${y}px`;
+            popup.moveTo(x, y);
         }, 1000);
     }
 
