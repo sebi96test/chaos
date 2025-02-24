@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moveadsd</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        .popup {
+            position: absolute;
+            width: 150px;
+            height: 100px;
+            background-color: lightblue;
+            border: 2px solid #333;
+            text-align: center;
+            line-height: 100px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            color: black;
+            border-radius: 10px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    // Function to generate random positions on the screen
+    function getRandomPosition() {
+        const width = window.innerWidth - 150;
+        const height = window.innerHeight - 100;
+        const randomX = Math.floor(Math.random() * width);
+        const randomY = Math.floor(Math.random() * height);
+        return { x: randomX, y: randomY };
+    }
+
+    // Function to create a popup that moves around
+    function createPopup() {
+        const popup = document.createElement('div');
+        popup.classList.add('popup');
+        popup.textContent = 'Popup!';
+        document.body.appendChild(popup);
+
+        // Initial position
+        const { x, y } = getRandomPosition();
+        popup.style.left = `${x}px`;
+        popup.style.top = `${y}px`;
+
+        // Move the popup every 1000 milliseconds (1 second)
+        setInterval(() => {
+            const { x, y } = getRandomPosition();
+            popup.style.left = `${x}px`;
+            popup.style.top = `${y}px`;
+        }, 1000);
+    }
+
+    // Create a new popup every 1000 milliseconds (1 second)
+    setInterval(createPopup, 1000);
+</script>
+
+</body>
+</html>
